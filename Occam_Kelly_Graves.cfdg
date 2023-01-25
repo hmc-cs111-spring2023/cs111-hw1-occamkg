@@ -1,0 +1,31 @@
+startshape all
+CF::Background = [hue 200 sat 0.3 b -0.5]
+CF::Alpha = 1
+
+shape all {
+    circles[alpha -0.5 sat 0.5 b 0.6]
+    star[hue 0 alpha -0.5 sat 1 b 0.6]
+}
+
+shape circles {
+    loop 6 [r -60 hue 60] CIRCLE[y 0.5]
+    CIRCLE[alpha -0.5 sat -1 b 1 s 1.5]
+}
+
+shape star {
+    loop 6 [r -60 hue 60] starpart[]
+}
+
+path starpart {
+    breaks = 10
+    inc = 60/breaks
+    loop i = breaks [hue inc] {
+        close = (breaks - i)/breaks
+        far = (i + 1)/breaks
+        MOVETO(0, close)
+        LINETO(far * sqrt(3)/2, far * 0.5)
+        LINETO(0, 0)
+        CLOSEPOLY()
+        FILL[alpha -0.5]
+    }
+}
